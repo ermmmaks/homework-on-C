@@ -1,47 +1,50 @@
 #include <stdio.h>
 
-int incomplete_quotient(int dividend, int divider)
-{
-    if (divider==0)
-    {
+int getIncompleteQuotient(int dividend, int divider)
+{       /*функция "неполноеЧастное" на вход получает делимое и делитель,
+        а выдает значение частного или ошибку при делении на "0"*/
+    if (divider==0) {
         printf("Делить на ноль нельзя!\n");
         return -1;
     }
+
     int quotient = 0;
     int remainder = dividend;
-
-    int sign = 1;
-    if (dividend<0)
-    {
+    int sign = 1; //отслеживаю знак чисел и по нему определяю знак результата
+    
+    if (dividend < 0) {
         sign *= -1;
-        dividend *= -1;
+        remainder *= -1;
     }
-    if (divider<0)
-    {
+
+    if (divider < 0) {
         sign *= -1;
         divider *= -1;
     }
     
-    while (remainder >= divider)
-    {
+    while (remainder >= divider) {
         remainder -= divider;
         quotient++;
     }
+
     return sign * quotient;
 }
 
 int main()
-{
-    int user_dividend, user_divider;
+{       //считываю данные пользователя и вызываю функцию неполногоЧастного
+    int userDividend, userDivider;
+
     printf("Введите делимое: ");
-    scanf("%d", &user_dividend);
+    scanf("%d", &userDividend);
+
     printf("Введите делитель: ");
-    scanf("%d", &user_divider);
+    scanf("%d", &userDivider);
     
-    int result = incomplete_quotient(user_dividend,user_divider);
-    if (result != -1)
-    {
+    int result = incompleteQuotient(userDividend,userDivider);
+
+    if (result != -1) {
         printf("Неполное частное = %d\n", result);
     }
+
     return 0;
 }

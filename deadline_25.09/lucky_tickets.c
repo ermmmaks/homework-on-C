@@ -2,7 +2,7 @@
 
 int main()
 {
-    int count_tickets = 0;
+    int countTickets = 0;
     int sums[28] = {0};
 
     for (int a = 0; a <= 9; a++)
@@ -11,18 +11,18 @@ int main()
         {
             for (int c = 0; c <= 9; c++)
             {
-                int sum_num = a + b + c;
-                sums[sum_num]++;
+                int sumNum = a + b + c;
+                sums[sumNum]++;
             }
         }
     }
 
-    for (int count_sum_num = 0; count_sum_num <= 27; count_sum_num++)
+    for (int countSumNum = 0; countSumNum <= 27; countSumNum++)
     {
-        count_tickets += sums[count_sum_num] * sums[count_sum_num];
+        countTickets += sums[countSumNum] * sums[countSumNum];
     }
 
-    printf("Count of lucky tickets: %d\n", count_tickets);
+    printf("Count of lucky tickets: %d\n", countTickets);
 
     return 0;
 }
