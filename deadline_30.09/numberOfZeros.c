@@ -1,7 +1,8 @@
 #include <stdio.h>
 
-int countZeros(int arr[], int size) {
-    //На вход получает массив и его размер, а выдает кол-во нулевых элементов
+int countZeros(int arr[], int size)
+{
+    // На вход получает массив и его размер, а выдает кол-во нулевых элементов
     int count = 0;
     for (int i = 0; i < size; i++) {
         if (arr[i] == 0)

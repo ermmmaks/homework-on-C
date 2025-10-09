@@ -1,10 +1,11 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdbool.h>
 
-bool checkBalance(const char* text) {
-    //На вход принимает неизменяемую строку, выдает значение true или false
-    int balance = 0; //Завожу счетчик, в котором "(" прибавляет 1, а ")" - убавляет
+bool checkBalance(const char* text)
+{
+    // На вход принимает неизменяемую строку, выдает значение true или false
+    int balance = 0; // Завожу счетчик, в котором "(" прибавляет 1, а ")" - убавляет
 
     for (int i = 0; text[i] != '\0'; i++) {
         if (text[i] == '(') {
