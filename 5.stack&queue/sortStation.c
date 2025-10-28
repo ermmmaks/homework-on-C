@@ -1,4 +1,4 @@
-#include "sortStation.h"
+#include "../stack.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,8 +17,7 @@ int precedence(char operator)
 
 char* toPostfix(char* infix)
 {
-    Stack* Stack;
-    Stack* newStack(&Stack)
+    Stack Stack = newStack();
 
     int j = 0;
     char* postfix[100];
@@ -28,26 +27,26 @@ char* toPostfix(char* infix)
         while (ch != '\0') {
             if (isdigit(ch)) {
                 postfix[j++] = ch;
-                postfix[j++] = ' '
+                postfix[j++] = ' ';
             } else if (ch == '(') {
-                push(&newStack, ch);
+                push(&Stack, ch);
             } else if (ch == ')') {
-                while (!isEmpty(&newStack) && (head(&newStack) != '(')) {
-                    postfix[j++] = pop(&newStack);
+                while (!isEmpty(&Stack) && (head(&Stack) != '(')) {
+                    postfix[j++] = pop(&Stack);
                     postfix[j++] = ' ';
                 }
-                pop(&newStack);
+                pop(&Stack);
             } else if (ch == '-' || ch == '+' || ch == '*' || ch == '/') {
-                while (!isEmpty(&newStack) && precedence(head(&newStack)) >= precedence(ch)) {
-                    postfix[j++] = pop(&newStack);
+                while (!isEmpty(&Stack) && precedence(head(&Stack)) >= precedence(ch)) {
+                    postfix[j++] = pop(&Stack);
                     postfix[j++] = ' ';
                 }
-                push(&newStack, ch);
+                push(&Stack, ch);
             }
         }
     }
-    
-    while (!isEmpty(&newStack)) {
+
+    while (!isEmpty(&Stack)) {
         postfix[j++] = pop(&newStack);
         postfix[j++] = ' ';
 
@@ -55,7 +54,7 @@ char* toPostfix(char* infix)
         deleteStack(&newStack);
     }
 
-    return postfix;
+    return postfix*;
 }
 
 int main(void)
@@ -65,9 +64,7 @@ int main(void)
     printf("Введите инфиксное выражение: ");
     fgets(infix, 100, stdin);
 
-    char* postfix = toPostfix(infix);
-
-    printf("Постфиксная запись: %s\n", postfix)
+    printf("Постфиксная запись: %s\n", toPostfix(infix));
 
     return 0;
 }
