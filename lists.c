@@ -21,7 +21,7 @@ List* new(void)
     return list;
 }
 
-bool insert(list* list, int index int value)
+bool insert(list* list, int index, int value)
 {
     if (index <= 0) {
         ListNode* newNode = malloc(size: sizeof(ListNode))
