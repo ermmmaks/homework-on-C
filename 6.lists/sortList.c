@@ -1,9 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include <../lists.h>
 
-void printMenu() {
+void printMenu(void) {
     printf("\n=== Меню сортированного списка ===\n");
     printf("0 - Выйти\n");
     printf("1 - Добавить значение в сортированный список\n");
