@@ -1,116 +1,118 @@
-#include <stdlib.h>
+#include "list.h"
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-typedef struct ListNode {
+struct ListNode {
     int value;
     struct ListNode* next;
-} ListNode;
+};
 
-typedef struct List {
-    ListNode* head;
-} List;
+struct List {
+    struct ListNode* head;
+};
 
-List* new(void)
+ListNode* new()
 {
-    List* list = (List*)malloc(sizeof(List));
-    if (list == NULL) {
-        return NULL;
-    }
-    lest->head = NULL;
+    List* list = calloc(1, ListNode*);
     return list;
 }
 
-bool insert(list* list, int index, int value)
+bool insertList(List* list, int index, int value)
 {
-    if (index <= 0) {
-        ListNode* newNode = malloc(size: sizeof(ListNode))
-        newNode->value = value;
+    if (list == NULL) {
+        return false;
+    }
+
+    ListNode* newNode = malloc(sizeof(ListNode));
+    if (newNode == NULL) {
+        return false;
+    }
+    newNode->value = value;
+    newNode->next = NULL;
+
+    if ((list->head == NULL) || (value <= list->head->value)) {
         newNode->next = list->head;
         list->head = newNode;
         return true;
-        }
-
-    if (list->head == NULL) {
-        return false;
     }
 
     ListNode* current = list->head;
-    unsigned counter = 0;
+    while ((current->next != NULL) && (current->next->value < value)) {
+        current = current->next;
+    }
+    newNode->next = current->next;
+    current->next = newNode;
+    return true;
+}
 
-    while (current != NULL) {
-        if (counter == index - 1) {
-            ListNode* newNode = malloc(size: sizeof(ListNode))
-            newNode->value = value;
-            newNode->next = list->head;
-            list->head = newNode;
+bool deleteList(List* list, int index)
+{
+    if (index < 0 || list->head == NULL) {
+        return false;
+    }
+
+    if (index == 0) {
+        ListNode* popNode = list->head;
+        list->head = popNode->next;
+        free(popNode);
+        return true;
+    }
+    ListNode* current = list->head;
+    int idx = 0;
+    while ((current != NULL) && (current->next != NULL)) {
+        if (idx == index - 1) {
+            ListNode* popNode = current->next;
+            current->next = popNode->next;
+            free(popNode);
             return true;
         }
         current = current->next;
-        counter++;
+        idx++;
     }
+    return false;
 }
 
-int get(list* list)
+int get(List* list, int index)
 {
+    if (list->head == NULL || index < 0 || list == NULL) {
+        return -1;
+    }
     ListNode* current = list->head;
-    for (int i = 0; i < index; i++) {
+    int idx = 0;
+    while (current != NULL) {
+        if (index == idx) {
+            return current->value;
+        }
         current = current->next;
+        idx++;
     }
-
-    return current->value;
-}
-
-bool remove(List* list, int index)
-{
-    if (list->head == NULL) {
-        return false;
-    }
-
-    ListNode* forRemove;
-    if (index == 0) {
-        forRemove = list->head;
-        list->head = list->head->next;
-    }
-
-    listNode* current = list->head;
-    for (int i = 0; i < index; i++) {
-        current = current->next;
-    }
-    forRemove = current->next;
-    current->next = forRemove->next;
-
-    free(forRemove);
-    
-    return true;
+    return -1;
 }
 
 void printList(List* list)
 {
-    if (list = NULL || list->head == NULL) {
-        printf("Список пуст или не существует\n");
-    } else {
-        ListNode* current = list->head;
-        while (current != NULL) {
-            printf("%d", current->value);
-            if (current->next != NULL) {
-                printf(", ")
-            }
-            current= current->next;
-        }
-        printf("\n");
+    if (list == NULL) {
+        printf("List is NULL\n");
+        return;
     }
+
+    ListNode* current = list->head;
+    while (current != NULL) {
+        printf("%d", current->value);
+        current = current->next;
+    }
+    printf("\n");
 }
 
-void deleteList(List* list)
+bool deleteList(List* list)
 {
-    if (list != NULL) {
-        ListNode* current = list->head;
-        while (current != NULL) {
-            ListNode* next = xurrent->next;
-            free(current);
-            current = next;
-        }
+    if (list == NULL) {
+        return false;
     }
-    free(list)
+    while (list->head != NULL) {
+        pop(list, 0);
+    }
+    free(list);
+    return true;
 }

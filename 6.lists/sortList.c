@@ -27,7 +27,7 @@ int main(void)
             case 1:
                 printf("Добавление вашего элемента\n");
                 scanf("%d", &value);
-                if (insert(list, value)) {
+                if (insertList(list, value)) {
                     printf("Добавлено!\n");
                 } else {
                     printf("Ошибка!\n");
@@ -39,7 +39,7 @@ int main(void)
         }
         scanf("%d", &choice);
     }
-    freeList(list);
+    deleteList(list);
 
     return 0;
 }
