@@ -1,4 +1,4 @@
-#include "../stack.h"
+#include <stackForSort.c>
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
