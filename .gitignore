@@ -62,3 +62,5 @@ Makefile
 cmake_install.cmake
 bracketBalance
 CMakeCache.txt
+CMakeFiles/
+controlWork1/
