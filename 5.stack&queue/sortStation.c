@@ -31,13 +31,13 @@ char* toPostfix(char* infix)
             } else if (ch == '(') {
                 push(&Stack, ch);
             } else if (ch == ')') {
-                while (!isEmpty(&Stack) && (head(&Stack) != '(')) {
+                while (!isEmpty(&Stack) && (top(&Stack) != '(')) {
                     postfix[j++] = pop(&Stack);
                     postfix[j++] = ' ';
                 }
                 pop(&Stack);
             } else if (ch == '-' || ch == '+' || ch == '*' || ch == '/') {
-                while (!isEmpty(&Stack) && precedence(head(&Stack)) >= precedence(ch)) {
+                while (!isEmpty(&Stack) && precedence(top(&Stack)) >= precedence(ch)) {
                     postfix[j++] = pop(&Stack);
                     postfix[j++] = ' ';
                 }
