@@ -1,10 +1,18 @@
 #pragma once
 #include <stdbool.h>
 
-typedef struct Stack Stack;
+typedef struct StackNode {
+    int value;
+    struct StackNode* next;
+} StackNode;
 
-Stack* newStack(void);
-void push(Stack* stack, char value);
+typedef struct {
+    StackNode* head;
+    int size;
+} Stack;
+
+Stack newStack(void);
+void push(Stack* stack, int value);
 char pop(Stack* stack);
 bool isEmpty(Stack* stack);
 void deleteStack(Stack* stack);

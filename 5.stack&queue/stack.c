@@ -2,26 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct StackNode {
-    char value;
-    struct StackNode* next;
-};
-struct Stack {
-    struct StackNode* head;
-};
-
-Stack* newStack(void)
+Stack newStack(void)
 {
-    Stack* stack = calloc(1, sizeof(*stack));
+    Stack stack = { .head = NULL, .size = 0 };
     return stack;
 }
 
-void push(Stack* stack, char value)
+void push(Stack* stack, int value)
 {
-    struct StackNode* node = (struct StackNode*)malloc(sizeof(struct StackNode));
-
+    StackNode* node = malloc(sizeof(StackNode));
+    
     node->value = value;
     node->next = stack->head;
+    stack->size++;
+
     stack->head = node;
 }
 

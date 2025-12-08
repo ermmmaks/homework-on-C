@@ -17,10 +17,10 @@ int precedence(char operator)
 
 char* toPostfix(char* infix)
 {
-    Stack Stack = newStack();
+    Stack stack = newStack();
 
     int j = 0;
-    char* postfix[100];
+    char postfix[100];
 
     for (int i = 0; i < 100; i++) {
         char ch = infix[i];
@@ -29,32 +29,32 @@ char* toPostfix(char* infix)
                 postfix[j++] = ch;
                 postfix[j++] = ' ';
             } else if (ch == '(') {
-                push(&Stack, ch);
+                push(&stack, ch);
             } else if (ch == ')') {
-                while (!isEmpty(&Stack) && (top(&Stack) != '(')) {
-                    postfix[j++] = pop(&Stack);
+                while (!isEmpty(&stack) && (top(&stack) != '(')) {
+                    postfix[j++] = pop(&stack);
                     postfix[j++] = ' ';
                 }
-                pop(&Stack);
+                pop(&stack);
             } else if (ch == '-' || ch == '+' || ch == '*' || ch == '/') {
-                while (!isEmpty(&Stack) && precedence(top(&Stack)) >= precedence(ch)) {
-                    postfix[j++] = pop(&Stack);
+                while (!isEmpty(&stack) && precedence(top(&stack)) >= precedence(ch)) {
+                    postfix[j++] = pop(&stack);
                     postfix[j++] = ' ';
                 }
-                push(&Stack, ch);
+                push(&stack, ch);
             }
         }
     }
 
-    while (!isEmpty(&Stack)) {
-        postfix[j++] = pop(&newStack);
+    while (!isEmpty(&stack)) {
+        postfix[j++] = pop(&stack);
         postfix[j++] = ' ';
 
         postfix[j++] = '\0';
-        deleteStack(&newStack);
+        deleteStack(&stack);
     }
 
-    return postfix*;
+    return postfix;
 }
 
 int main(void)
