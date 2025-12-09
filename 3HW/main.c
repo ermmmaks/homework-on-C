@@ -1,24 +1,27 @@
 #include "optSort.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(void)
 {
-    int numbers[100];
+    int* numbers = calloc(100, sizeof(int));
     int countOfNum = 0;
-    int userNum = 0;
+    char userSym = 0;
 
-    while (scanf("%d", &userNum) == 1 && countOfNum < 100) {
-        numbers[countOfNum++] = userNum;
+    while (userSym != '\n') {
+        int inputNum = 0;
+        int f = scanf("%d", &inputNum);
+        if (f == 1) {
+            numbers[countOfNum++] = inputNum;
+        }
+
+        userSym = getchar();
+        if (userSym == '\n') {
+            break;
+        }
     }
+    printf("Count of moved elements: %d\n", bubbleSort(numbers, countOfNum));
 
-    int movedCount = bubbleSort(numbers, countOfNum);
-
-    for (int i = 0; i < countOfNum; i++) {
-        printf("%d ", numbers[i]);
-    }
-    printf("\n");
-
-    printf("Count of moved elements: %d\n", movedCount);
-
+    free(numbers);
     return 0;
 }

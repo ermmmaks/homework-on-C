@@ -1,3 +1,3 @@
 #pragma once
 
-void bubbleSort(int numbers[], int count);
+int bubbleSort(int* numbers, int count);

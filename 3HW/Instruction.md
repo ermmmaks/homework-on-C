@@ -2,12 +2,12 @@
 
 To build this application, run
 
---------------------------------
-**gcc main.c sorting.s -o main**
---------------------------------
+```console
+$ gcc main.c optSort.s -o -Wall -Wextra -Wpedantic -O2 main
+```
 
 Sorting.c was compiled into sorting.s with 
 
---------------------------------------
-**gcc sorting.c -S -O2 -o sorting.s**
---------------------------------------
+```console
+$ gcc optSort.c -S -O2 -Wall -Wextra -Wpedantic -o optSort.s
+```
