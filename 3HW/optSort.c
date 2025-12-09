@@ -1,7 +1,16 @@
-void bubbleSort(int numbers[], int count)
+#include "optSort.h"
+#include <stdlib.h>
+
+int bubbleSort(int* numbers, int count)
 {
+    int* unsorted = calloc(count, sizeof(int));
+
     for (int i = 0; i < count; i++) {
-        for (int j = 0; j < count - i; j++) {
+        unsorted[i] = numbers[i];
+    }
+
+    for (int i = 0; i < count; i++) {
+        for (int j = 0; j < count - i -1; j++) {
             if (numbers[j] > numbers[j + 1]) {
                 int temp = numbers[j];
                 numbers[j] = numbers[j + 1];
@@ -9,4 +18,13 @@ void bubbleSort(int numbers[], int count)
             }
         }
     }
+    int countOfMoved = 0;
+
+    for (int i = 0; i < count; i++) {
+        if (numbers[i] != unsorted[i]) {
+            countOfMoved++;
+        }
+    }
+    free(unsorted);
+    return countOfMoved;
 }
