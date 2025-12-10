@@ -1,3 +1,4 @@
+#include "7.3gnomeSort.h"
 #include <stdio.h>
 
 void gnomeSort(int rowOfPots[], int countOfPots)
@@ -32,7 +33,7 @@ int main(void)
         scanf("%d", &userNum);
         rowOfPots[i] = userNum;
     }
-    
+
     gnomeSort(rowOfPots, countOfPots);
 
     printf("Result: ");
