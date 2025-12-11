@@ -20,7 +20,7 @@ int main(void)
     insertList(myList, 0, 3);
     insertList(myList, 0, 2);
     
-    helper(myList, reverseList(myList));
+    helper(reverseList(myList), (2 -> 3 -> 1 -> NULL));
 
     printf("Tests ended\n");
 
