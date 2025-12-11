@@ -12,7 +12,7 @@ struct List {
     struct ListNode* head;
 };
 
-List* new()
+List* createList(void)
 {
     List* list = malloc(sizeof(List));
     if (list == NULL) {
@@ -36,7 +36,7 @@ bool insertList(List* list, int index, int value)
     
     newNode->next = list->head;
     list->head = newNode;
-    
+
     return true;
 }
 
@@ -116,10 +116,10 @@ bool deleteList(List* list)
     return true;
 }
 
-void reverseList(List* list)
+List* reverseList(List* list)
 {
     if (list == NULL || list->head == NULL || list->head->next == NULL) {
-        return;
+        return list;
     }
 
     ListNode* prev = NULL;
@@ -134,4 +134,24 @@ void reverseList(List* list)
     }
 
     list->head = prev;
+
+    return list;
+}
+
+bool isEqual(List* list1, List* list2)
+{
+    if (list1 == NULL || list2 == NULL) {
+        return list1 == list2;
+    }
+    ListNode* curr1 = list1->head;
+    ListNode* curr2 = list2->head;
+
+    while (curr1 != NULL && curr2 != NULL) {
+        if (curr1->value != curr2->value) {
+            return false;
+        }
+        curr1 = curr1->next;
+        curr2 = curr2->next;
+    }
+    return curr1 == NULL && curr2 == NULL;
 }
