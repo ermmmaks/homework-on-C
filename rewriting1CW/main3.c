@@ -14,7 +14,7 @@ void helper(List* input, List* expected)
 int main(void)
 {
     printf("Tests running ...\n");
-    //first quick test
+    // first quick test
     List* quickList = createList();
     insertList(quickList, 0, 1);
     insertList(quickList, 0, 3);
@@ -27,7 +27,7 @@ int main(void)
 
     helper(quickList, expected1);
 
-    //second test with mirrored list
+    // second test with mirrored list
     List* mirroredList = createList();
     insertList(mirroredList, 0, 5);
     insertList(mirroredList, 0, 5);
@@ -41,8 +41,6 @@ int main(void)
     helper(mirroredList, expected2);
 
     printf("Tests ended\n");
-
-
 
     deleteList(quickList);
     deleteList(mirroredList);

@@ -14,7 +14,7 @@ void helper(long long input, long long expected)
 int main(void)
 {
     printf("Tests running ...\n");
-    
+
     helper(1234, 1234);
     helper(100, 100);
     helper(505, 505);

@@ -1,6 +1,6 @@
 #include "3.h"
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 struct ListNode {
@@ -33,14 +33,14 @@ bool insertList(List* list, int index, int value)
         return false;
     }
     newNode->value = value;
-    
+
     newNode->next = list->head;
     list->head = newNode;
 
     return true;
 }
 
-int pop(List* list, int index) 
+int pop(List* list, int index)
 {
     if (index < 0 || list->head == NULL) {
         return -1;
