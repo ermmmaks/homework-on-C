@@ -7,7 +7,7 @@ void helper(long long input, long long expected)
     if (result == expected) {
         printf("Test passed\n");
     } else {
-        printf("Test failed: expected -- %lld\n", expected);
+        printf("Test failed: result -- %lld\n", result);
     }
 }
 
@@ -17,10 +17,10 @@ int main(void)
     
     helper(1234, 1234);
     helper(100, 100);
-    helper(555, 555);
+    helper(505, 505);
     helper(1, 1);
     helper(9876, 6789);
-    helper(50301, 10035);
+    helper(30501, 10035);
 
     printf("Tests ended\n");
 
