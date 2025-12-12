@@ -15,56 +15,52 @@ int precedence(char operator)
     return 0;
 }
 
-char* toPostfix(char* infix)
+void* toPostfix(char* infix, char* postfix)
 {
-    Stack stack = newStack();
+    Stack* stack = newStack();
 
     int j = 0;
-    char postfix[100];
 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; infix[i] != '\0'; i++) {
         char ch = infix[i];
-        while (ch != '\0') {
-            if (isdigit(ch)) {
-                postfix[j++] = ch;
+
+        if (isdigit(ch)) {
+            postfix[j++] = ch;
+            postfix[j++] = ' ';
+        } else if (ch == '(') {
+            push(stack, ch);
+        } else if (ch == ')') {
+            while (!isEmpty(stack) && (top(stack) != '(')) {
+                postfix[j++] = pop(stack);
                 postfix[j++] = ' ';
-            } else if (ch == '(') {
-                push(&stack, ch);
-            } else if (ch == ')') {
-                while (!isEmpty(&stack) && (top(&stack) != '(')) {
-                    postfix[j++] = pop(&stack);
-                    postfix[j++] = ' ';
-                }
-                pop(&stack);
-            } else if (ch == '-' || ch == '+' || ch == '*' || ch == '/') {
-                while (!isEmpty(&stack) && precedence(top(&stack)) >= precedence(ch)) {
-                    postfix[j++] = pop(&stack);
-                    postfix[j++] = ' ';
-                }
-                push(&stack, ch);
             }
+            pop(stack);
+        } else if (ch == '-' || ch == '+' || ch == '*' || ch == '/') {
+            while (!isEmpty(stack) && precedence(top(stack)) >= precedence(ch)) {
+                postfix[j++] = pop(stack);
+                postfix[j++] = ' ';
+            }
+            push(stack, ch);
         }
     }
 
-    while (!isEmpty(&stack)) {
-        postfix[j++] = pop(&stack);
-        postfix[j++] = ' ';
-
-        postfix[j++] = '\0';
-        deleteStack(&stack);
+    while (!isEmpty(stack)) {
+        postfix[j++] = pop(stack);
+        postfix[j++] = ' ';        
     }
 
-    return postfix;
+    postfix[j] = '\0';
+    deleteStack(&stack);
 }
 
 int main(void)
 {
-    char infix[100];
+    char initial[] = "(1 + 1) * 2";
+    char result[20];
 
-    printf("Введите инфиксное выражение: ");
-    fgets(infix, 100, stdin);
+    toPostfix(initial, result);
 
-    printf("Постфиксная запись: %s\n", toPostfix(infix));
+    printf("Постфиксная запись: %s\n", result);
 
     return 0;
 }
