@@ -1,31 +1,45 @@
+#include "stack.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 
+bool isPair(char c1, char c2)
+{
+    if (c1 == '(' && c2 == ')') {
+        return true;
+    } else if (c1 == '[' && c2 == ']') {
+        return true;
+    } else if (c1 == '{' && c2 == '}') {
+        return true;
+    }
+    return false;
+}
+
 bool balance(const char* text)
 {
-    char stack[100];
-    int head = -1;
-    
+    Stack* stack = newStack();
+
     for (int i = 0; text[i] != '\0'; i++) {
         char c = text[i];
 
         if (c == '(' || c == '{' || c == '[') {
-            stack[++head] = c;
+            push(stack, c);
         } else if (c == ')' || c == '}' || c == ']') {
-            if (head == -1) {
-                return false; //проверка количества скобок
+            if (isEmpty(stack)) {
+                deleteStack(&stack);
+                return false; // проверка количества скобок
             }
-            
-            if ((c == ')' && stack[head--] != '(') ||
-                (c == '}' && stack[head--] != '{') ||
-                (c == ']' && stack[head--] != '[')) {
-                return false; //проверка вложенности скобок
+            char topChar = pop(stack);
+            if (!isPair(topChar, c)) {
+                deleteStack(&stack);
+                return false; // проверка вложенности скобок
             }
         }
     }
-    
-    return head == -1;
+
+    bool balance = isEmpty(stack);
+    deleteStack(&stack);
+    return balance;
 }
 
 int main(void)

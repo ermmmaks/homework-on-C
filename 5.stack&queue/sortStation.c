@@ -15,7 +15,7 @@ int precedence(char operator)
     return 0;
 }
 
-void* toPostfix(char* infix, char* postfix)
+void toPostfix(char* infix, char* postfix)
 {
     Stack* stack = newStack();
 
