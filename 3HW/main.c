@@ -17,8 +17,10 @@ int main(void)
 
         userSym = getchar();
     }
-    printf("Count of moved elements: %d\n", bubbleSort(numbers, countOfNum));
+    printf("Count of moved elements: \n");
+    int countOfMoved = bubbleSort(numbers, countOfNum);
 
     free(numbers);
-    return 0;
+
+    return countOfMoved;
 }
