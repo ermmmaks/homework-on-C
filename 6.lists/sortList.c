@@ -12,7 +12,7 @@ void printMenu(void) {
 
 int main(void)
 {
-    SortedList* list = new();
+    SortedList* list = createList();
     int choice;
     int value;
 
