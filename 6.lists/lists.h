@@ -10,9 +10,13 @@ typedef struct List {
     struct ListNode* head;
 } List;
 
-ListNode* createList(void);
+List* createList(void);
 
 // создает список с одной нодой-головой
+
+bool isEmpty(List* list);
+
+//два условия пустоты - не существование и указатель на голову == NULL
 
 bool insertList(List* list, int value);
 

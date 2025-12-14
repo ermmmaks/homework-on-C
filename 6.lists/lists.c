@@ -1,4 +1,4 @@
-#include "list.h"
+#include "lists.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,6 +8,14 @@ List* createList(void)
     List* list = calloc(1, sizeof(struct List));
     list->head = NULL;
     return list;
+}
+
+bool isEmpty(List* list)
+{
+    if (list == NULL) {
+        return true;
+    }
+    return (list->head == NULL);
 }
 
 bool insertList(List* list, int value)
@@ -94,12 +102,13 @@ void printList(List* list)
     if (list == NULL) {
         printf("List is NULL\n");
     } else {
+        printf("[");
         ListNode* current = list->head;
-        while (current != NULL) {
-            printf("%d", current->value);
+        while (current->next != NULL) {
+            printf("%d, ", current->value);
             current = current->next;
         }
-        printf("\n");
+        printf("%d]\n", current->value);
     }
     return;
 }
