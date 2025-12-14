@@ -17,7 +17,6 @@ int main(void)
 
         userSym = getchar();
     }
-    printf("Count of moved elements: \n");
 
     int moved = bubbleSort(numbers, countOfNum);
 
