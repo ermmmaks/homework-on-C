@@ -11,13 +11,14 @@ int main(void)
 
     printf("Write a number: ");
     scanf("%lf", &data.number_d);
-
-    uint64_t signBit = (data.number_i >> 63) & 0x1;
+    
     char sign = signBit ? '-' : '+';
 
-    uint54_t expBits = (data.number_i >> 52) & 0x7FF;
+    uint64_t signBit = (data.number_i >> 63) & 0x1;
 
-    uint64_t mantissaBits = (data.number_i >> 52) & 0xFFFFFFFFFFFFF;
+    uint64_t expBits = (data.number_i >> 52) & 0x7FF;
+
+    uint64_t mantissaBits = (data.number_i) & 0xFFFFFFFFFFFFF;
 
     int exponent = (int)expBits - 1023;
 
