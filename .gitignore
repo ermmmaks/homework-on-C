@@ -58,9 +58,4 @@ dkms.conf
 # End of https://www.toptal.com/developers/gitignore/api/c
 build/
 
-Makefile
-cmake_install.cmake
-bracketBalance
-CMakeCache.txt
 CMakeFiles/
-controlWork1/
