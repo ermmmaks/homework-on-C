@@ -36,7 +36,7 @@ int32_t toInt(Bin32 sum)
 
     if (sum.bits[0] == 0) {
         for (int i = 0; i < 32; i++) {
-            if (sum.bits[i]) {
+            if (sum.bits[i] == 1) {
                 res |= (int32_t)1 << (32 - 1 - i);
             }
         }
