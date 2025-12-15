@@ -1,7 +1,12 @@
 #pragma once
 #include <stdbool.h>
+#include <stdint.h>
 
-char* toBin(int num);
-char* binSum(char* bin1, char* bin2);
-int toInt(char* sum);
-void print(char* sum, bool full);
+typedef struct Bin32 {
+    bool bits[32];
+} Bin32;
+
+Bin32 toBin(int num);
+Bin32 binSum(Bin32 bin1, Bin32 bin2);
+int32_t toInt(Bin32 sum);
+void print(Bin32 sum, bool fullOrNot);

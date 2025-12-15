@@ -1,76 +1,76 @@
 #include "binaryRep.h"
-#include <stdbool,h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-char* toBin(int num)
+Bin32 toBin(int32_t num)
 {
-    char* bits = calloc(32, sizeof(char));
+    Bin32 res;
     for (int i = 0; i < 32; i++) {
-        bits[31 - i] = (num >> i) & 1;
-    }
-    return bits;
-}
-
-char* binSum(char* bin1, char* bin2)
-{
-    char* res = calloc(32, sizeof(char));
-    char d = 0;
-    char curr = 0;
-    for (int i = 31; i >= 0; i--) {
-        curr = 0;
-        curr += bin2[i];
-        curr += bin1[i];
-        curr += d;
-        if (curr == 1) {
-            res[i] = 1;
-            d = 0;
-        } else if (curr == 2) {
-            d = 1;
-        } else if (curr == 3) {
-            d = 1;
-            res[i] = 2;
-        }
+        res.bits[32 - 1 - i] = (num >> i) & 1;
     }
 
     return res;
 }
 
-char* toint(int sum)
+Bin32 binSum(Bin32 bin1, Bin32 bin2)
 {
-    int result = 0;
+    Bin32 res;
+    bool carry = false;
 
-    if (sum[0] == 0) {
-        for (int i = 31; i >= 0; i--) {
-            if (sum[i]) {
-                res += 1 << 31 - i;
-            }
-        }
-        return res;
-    } else {
-        for (int i = 31; i >= 0; i--) {
-            if (!sum[i]) {
-                res += 1 << 31 - i;
-            }
-        }
-        res += 1;
-        return -res;
+    for (int i = 32 - 1; i >= 0; i--) {
+        bool bitOf1 = bin1.bits[i];
+        bool bitOf2 = bin2.bits[i];
+
+        res.bits[i] = bitOf1 ^ bitOf2 ^ carry;
+        carry = (bitOf1 && bitOf2) || (carry && (bitOf1 ^ bitOf2));
     }
+
+    return res;
 }
 
-void print(char* sum, bool full)
+int32_t toInt(Bin32 sum)
 {
-    bool signedBit = full;
-    for (int i = 0; i <= 31; i++) {
-        if (!signedBit) {
-            signedBit = (sum[i] == 1);
+    int32_t res = 0;
+
+    if (sum.bits[0] == 0) {
+        for (int i = 0; i < 32; i++) {
+            if (sum.bits[i]) {
+                res |= (int32_t)1 << (32 - 1 - i);
+            }
         }
-        if (signedBit) {
-            printf("%d", sum[i]);
+    } else {
+        uint32_t invert = 0;
+
+        for (int i = 0; i < 32; i++) {
+            if (sum.bits[i] == 0) {
+                invert |= (uint32_t)1 << (32 - 1 - i);
+            }
+        }
+        int32_t absolut_unsigned = (int32_t)invert + 1;
+
+        res = -absolut_unsigned;
+    }
+
+    return res;
+}
+
+void print(Bin32 sum, bool fullOrNot)
+{
+    bool full = fullOrNot;
+    for (int i = 0; i < 32; i++) {
+        if (!full && sum.bits[i] == 1) {
+            full = true;
+        }
+        if (full) {
+            printf("%d", sum.bits[i] ? 1 : 0);
         }
     }
-    if (!signedBit) {
+
+    if (!full) {
         printf("0");
     }
+
     printf("\n");
 }
