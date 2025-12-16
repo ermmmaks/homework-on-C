@@ -9,4 +9,4 @@ add_subdirectory(2CW)
 add_subdirectory(binaryRepresent)
 add_subdirectory(doubleOnMicro)
 
-add_compile_options(-Wall -Wextra - Wpedantic)
+add_compile_options(-Wall -Wextra -Wpedantic)
