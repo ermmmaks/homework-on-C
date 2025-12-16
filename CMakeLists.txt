@@ -8,4 +8,4 @@ add_subdirectory(6CW)
 add_subdirectory(2CW)
 add_subdirectory(BinaryRepresentation)
 
-add_compile_options(-Wall -Wextra - Wpedantic)
+add_compile_options(-Wall -Wextra -Wpedantic)
