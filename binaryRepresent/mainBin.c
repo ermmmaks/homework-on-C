@@ -21,7 +21,7 @@ int main(void)
 
     Bin32 resBin = binSum(bin1, bin2);
     printf("Summ nums in binary sys: ");
-    printCompact(resBin);
+    printFull(resBin);
 
     int32_t resInt = toInt(resBin);
     printf("Summ in int sys: %d\n", resInt);
