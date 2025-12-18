@@ -1,3 +1,0 @@
-Алгоритм запускается командами
-gcc -o sorter 4.1OptimalSortFormat.c 4.1OptimalSortFunction.s
-echo "<Ваши числа через пробел>" ./sorter
