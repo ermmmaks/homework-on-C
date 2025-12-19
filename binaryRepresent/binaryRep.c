@@ -3,10 +3,13 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 Bin32 toBin(int32_t num)
 {
     Bin32 res;
+    res.overflow = false;
+
     for (int i = 0; i < 32; i++) {
         res.bits[32 - 1 - i] = (num >> i) & 1;
     }
@@ -17,40 +20,44 @@ Bin32 toBin(int32_t num)
 Bin32 binSum(Bin32 bin1, Bin32 bin2)
 {
     Bin32 res;
+    res.overflow = false;
     bool carry = false;
+    bool carryLast = false;
 
     for (int i = 32 - 1; i >= 0; i--) {
-        int sum = bin1.bits[i] + bin2.bits[i] + carry;
-        res.bits[i] = sum % 2;
-        carry = sum / 2;
+        bool A = bin1.bits[i];
+        bool B = bin2.bits[i];
+
+        if (i == 0) {
+            carryLast = carry;
+        }
+
+        res.bits[i] = A ^ B ^ carry;
+        carry = (A & B) | (carry & (A ^ B));
+    }
+
+    if (carry!= carryLast) {
+        res.overflow = true;
     }
 
     return res;
 }
 
-int32_t toInt(Bin32 sum)
+/* копирует поразрядно каждый бит в res, кроме знакового.
+если число было отрицательным, вычитает 2^31 степени,
+что вернет знак на место
+*/
+
+int32_t toInt(Bin32 num)
 {
     int32_t res = 0;
 
-    if (sum.bits[0] == 0) {
-        for (int i = 0; i < 32; i++) {
-            res = (res << 1) | sum.bits[i];
-        }
+    for (int i = 1; i < 32; i++) {
+        res = (res << 1) | num.bits[i];
+    }
 
-    } else {
-        Bin32 invert;
-
-        for (int i = 0; i < 32; i++) {
-            invert.bits[i] = !sum.bits[i];
-        }
-        Bin32 one = toBin(1);
-
-        Bin32 absolut_unsigned = binSum(invert, one);
-        for (int i = 0; i < 32; i++) {
-            res = (res << 1) | absolut_unsigned.bits[i];
-        }
-
-        res = -res;
+    if (num.bits[0] == 1) {
+        res |= (1 << 31);
     }
 
     return res;
@@ -58,6 +65,11 @@ int32_t toInt(Bin32 sum)
 
 void printFull(Bin32 num)
 {
+    if (num.overflow) {
+        printf("OVERFLOOOOOWWW\n");
+        return;
+    }
+
     for (int i = 0; i < 32; i++) {
         printf("%d", num.bits[i]);
         if ((i + 1) % 8 == 0) {
@@ -69,6 +81,11 @@ void printFull(Bin32 num)
 
 void printCompact(Bin32 num)
 {
+    if (num.overflow) {
+        printf("OVERFLOOOOOWWW\n");
+        return;
+    }
+
     int i = 0;
     bool status = false;
 
