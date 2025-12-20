@@ -13,8 +13,8 @@ void printMenu(void) {
 int main(void)
 {
     SortedList* list = createList();
-    int choice;
-    int value;
+    int choice = 777;
+    int value = 0;
 
     printMenu();
     printf("= Выберите операцию:\n");
