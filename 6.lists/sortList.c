@@ -12,7 +12,7 @@ void printMenu(void) {
 
 int main(void)
 {
-    List* list = createList();
+    SortedList* list = createList();
     int choice;
     int value;
 
@@ -33,12 +33,12 @@ int main(void)
                 break;
 
             case 2:
-                printf("Индекс элемента, который хотите удалить: \n");
+                printf("Значение элемента, который хотите удалить: \n");
                 scanf("%d", &value);
                 if (removeValue(list, value)) {
                     printf("Удалено!\n");
                 } else {
-                    printf("Некорректный индекс или список не существует!\n");
+                    printf("Элемент не найден или список не существует!\n");
                 }
                 break;
 

@@ -1,41 +1,25 @@
 #pragma once
 #include <stdbool.h>
 
-typedef struct ListNode {
-    int value;
-    struct ListNode* next;
-} ListNode;
+typedef struct ListNode ListNode;
 
-typedef struct List {
-    struct ListNode* head;
-} List;
-
-List* createList(void);
+typedef struct SortedList SortedList;
 
 // создает список с одной нодой-головой
 
-bool isEmpty(List* list);
+SortedList* createList(void);
 
 //два условия пустоты - не существование и указатель на голову == NULL
 
-bool insertList(List* list, int value);
+bool isEmpty(SortedList* list);
 
-/* при условии, что список существует и память была выделена корректно
-создает новый узел с поданным значением и NULL в качестве next
-если список пуст или значение меньше головного (сортировка по возрастанию), то ставим ноду в начало
-если нет, то ищем или число с большим значением, или конец списка и тогда вставляем
-(работает только для сортированного списка)
-*/
+// вставка значения в сортированный список
 
-bool removeValue(List* list, int index);
+bool insertList(SortedList* list, int value);
 
-/* если подали отрицательный индекс или список пуст - возврат false
-иначе если индекс == 0, то удаляем голову и назначаем новую - true
-иначе доходим до необходимого индекса удаляем его ноду - true
-если же индекс вышел за пределы списка - false
-*/
+// удаление элемента по значению
 
-int get(List* list, int index, bool* status);
+bool removeValue(SortedList* list, int value);
 
 /* status отвечает за успех/неудачу операции (есть защита от нулевого указателя)
 если список не существует, пуст или индекс отрицательный - даем статус false
@@ -44,14 +28,15 @@ int get(List* list, int index, bool* status);
 (при неудаче неважно что return'ить. Это сделано, чтобы можно было и -1, к примеру, получить из списка без конфликта)
 */
 
-void printList(List* list);
+int get(SortedList* list, int index, bool* status);
 
 /*если список пуст, говорим об этом
 иначе поочередно с головы начинаем print'ить каждое значение
 */
 
-bool deleteList(List* list);
+void printList(SortedList* list);
 
 /*если список не существует - false
 иначе, начиная с головы и до конца удаляем элементы и очищаем память - true
 */
+bool deleteList(SortedList* list);
