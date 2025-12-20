@@ -1,144 +1,130 @@
-#include "lists.h"
+#include "cycleLists.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-struct ListNode {
-    int value;
-    struct ListNode* next;
-};
-
-struct List {
-    struct ListNode* head;
-};
-
-ListNode* new()
+List* createNew()
 {
-    List* list = calloc(1, sizeof(List));
+    List* list = (List*)calloc(1, sizeof(List));
     return list;
 }
 
-bool push(List* list, int index, int value)
+bool insert(List* list, int index, int num)
 {
-    if (index < 0) {
+    if (index < 0 || !list) {
         return false;
     }
-    if (index == 0) {
-        ListNode* newNode = malloc(sizeof(ListNode));
-        newNode->value = value;
 
-        if (list->head == NULL) {
-            newNode->next = newNode;
-            list->head = newNode;
-        } else {
-            ListNode* last = list->head;
-            while (last->next != list->head) {
-                last = last->next;
-            }
-            newNode->next = list->head;
-            list->head = newNode;
-            last->next = newNode;
-        }
+    ListNode* newNode = (ListNode*)malloc(sizeof(ListNode));
+
+    newNode->value = num;
+
+    if (list->tail == NULL) {
+        newNode->next = newNode;
+        list->tail = newNode;
         return true;
     }
 
-    int idx = 0;
-    ListNode* current = list->head;
-    if (current == NULL)
-        return false;
+    if (index == 0) {
+        newNode->next = list->tail->next;
+        list->tail->next = newNode;
+        return true;
+    }
 
-    do {
-        if (idx == index - 1) {
-            ListNode* newNode = malloc(sizeof(ListNode));
-            newNode->value = value;
-            newNode->next = current->next;
-            current->next = newNode;
-            return true;
+    ListNode* curr = list->tail->next;
+    for (int i = 0; i < index - 1; i++) {
+        curr = curr->next;
+        if (curr == list->tail->next) {
+            free(newNode);
+            return false;
         }
-        idx++;
-        current = current->next;
-    } while (current != list->head);
+    }
+    newNode->next = curr->next;
+    curr->next = newNode;
 
-    return false;
+    if (curr == list->tail) {
+        list->tail = newNode;
+    }
+
+    return true;
 }
 
 bool pop(List* list, int index)
 {
-    if (index < 0 || list->head == NULL) {
+    if (index < 0 || !list->tail || !list) {
         return false;
     }
+
+    ListNode* head = list->tail->next;
+
     if (index == 0) {
-        if (list->head->next == list->head) {
-            free(list->head);
-            list->head = NULL;
+        if (list->tail == head) {
+            list->tail = NULL;
         } else {
-            ListNode* last = list->head;
-            while (last->next != list->head) {
-                last = last->next;
-            }
-            ListNode* popNode = list->head;
-            list->head = popNode->next;
-            last->next = list->head;
-            free(popNode);
+            list->tail->next = head->next;
         }
+        free(head);
         return true;
     }
 
-    ListNode* current = list->head;
-    int idx = 0;
-    do {
-        if (idx == index - 1) {
-            ListNode* popNode = current->next;
-            current->next = popNode->next;
-            free(popNode);
-            return true;
+    ListNode* curr = head;
+    for (int i = 0; i < index - 1; i++) {
+        curr = curr->next;
+        if (curr->next == head) {
+            return false;
         }
-        current = current->next;
-        idx++;
-    } while (current != list->head);
+    }
 
-    return false;
+    ListNode* target = curr->next;
+    if (target == head) {
+        return false;
+    }
+
+    curr->next = target->next;
+    if (target == list->tail) {
+        list->tail = curr;
+    }
+    free(target);
+
+    return true;
 }
 
-int get(List* list, int index)
-{
-    if (list->head == NULL || index < 0 || list == NULL) {
-        return -1;
+void removeNext(List* list, ListNode* curr) {
+    if (!list || !list->tail) {
+        return;
     }
-    ListNode* current = list->head;
-    int idx = 0;
-    do {
-        if (index == idx) {
-            return current->value;
+    ListNode* target = curr->next;
+    if (target == curr) {
+        list->tail == NULL;
+    } else {
+        curr->next = target->next;
+        if (target == list->tail) {
+            list->tail = curr;
         }
-        current = current->next;
-        idx++;
-    } while (current != list->head);
-    return -1;
+    }
+    free(target);
 }
 
 void printList(List* list)
 {
-    if ((list == NULL) && (list->head == NULL)) {
+    if (!list || !list->tail) {
+        printf("List is empty!\n");
         return;
     }
 
-    ListNode* current = list->head;
-    while (current != NULL) {
-        printf("%d", current->value);
-        current = current->next;
-    }
+    ListNode* head = list->tail->next;
+    ListNode* curr = head;
+    do {
+        printf("%d ", curr->value);
+        curr = curr->next;
+    } while (curr != head);
     printf("\n");
 }
 
-bool deleteList(List* list)
+void deleteList(List* list)
 {
-    if (list == NULL) {
-        return false;
-    }
-    while (list->head != NULL) {
+    while (list->tail != NULL) {
         pop(list, 0);
     }
     free(list);
-    return true;
 }
