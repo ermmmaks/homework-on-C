@@ -28,8 +28,8 @@ int trick(int n, int m) {
 }
 
 int main() {
-    int warriors;
-    int orderOfMurder;
+    int warriors = 0;
+    int orderOfMurder = 0;
 
     scanf("%d", &warriors);
     scanf("%d", &orderOfMurder);
