@@ -9,7 +9,7 @@ typedef struct ListNode {
 } ListNode;
 
 typedef struct CycleList {
-    ListNode* tail; //указатель на хвост. на голову будет tail->next
+    ListNode* tail; // указатель на хвост. на голову будет tail->next
 } CycleList;
 
 CycleList* createNew()
@@ -98,7 +98,8 @@ bool pop(CycleList* list, int index)
     return true;
 }
 
-void removeNext(CycleList* list, ListNode* curr) {
+void removeNext(CycleList* list, ListNode* curr)
+{
     if (!list || !list->tail) {
         return;
     }

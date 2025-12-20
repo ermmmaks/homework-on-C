@@ -1,7 +1,8 @@
 #include "cycleLists.h"
 #include <stdio.h>
 
-int trick(int n, int m) {
+int trick(int n, int m)
+{
     if (n <= 0 || m <= 0) {
         return -1;
     }
@@ -27,7 +28,8 @@ int trick(int n, int m) {
     return survivor;
 }
 
-int main() {
+int main()
+{
     int warriors = 0;
     int orderOfMurder = 0;
 
