@@ -1,23 +1,18 @@
 #pragma once
 #include <stdbool.h>
 
-typedef struct ListNode {
-    int value;
-    struct ListNode* next;
-} ListNode;
+typedef struct ListNode ListNode;
 
-typedef struct List {
-    ListNode* tail; //указатель на хвост. на голову будет tail->next
-} List;
+typedef struct CycleList CycleList;
 
-List* createNew(void);
+CycleList* createNew(void);
 
-bool insert(List* list, int index, int value);
+bool insert(CycleList* list, int index, int value);
 
-bool pop(List* list, int index);
+bool pop(CycleList* list, int index);
 
-void removeNext(List* list, ListNode* curr);
+void removeNext(CycleList* list, ListNode* curr);
 
-void printList(List* list);
+void printList(CycleList* list);
 
-void deleteList(List* list);
+void deleteList(CycleList* list);

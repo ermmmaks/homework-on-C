@@ -3,13 +3,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-List* createNew()
+typedef struct ListNode {
+    int value;
+    struct ListNode* next;
+} ListNode;
+
+typedef struct CycleList {
+    ListNode* tail; //указатель на хвост. на голову будет tail->next
+} CycleList;
+
+CycleList* createNew()
 {
-    List* list = (List*)calloc(1, sizeof(List));
+    CycleList* list = (CycleList*)calloc(1, sizeof(List));
     return list;
 }
 
-bool insert(List* list, int index, int num)
+bool insert(CycleList* list, int index, int num)
 {
     if (index < 0 || !list) {
         return false;
@@ -49,7 +58,7 @@ bool insert(List* list, int index, int num)
     return true;
 }
 
-bool pop(List* list, int index)
+bool pop(CycleList* list, int index)
 {
     if (index < 0 || !list->tail || !list) {
         return false;
@@ -89,7 +98,7 @@ bool pop(List* list, int index)
     return true;
 }
 
-void removeNext(List* list, ListNode* curr) {
+void removeNext(CycleList* list, ListNode* curr) {
     if (!list || !list->tail) {
         return;
     }
@@ -105,7 +114,7 @@ void removeNext(List* list, ListNode* curr) {
     free(target);
 }
 
-void printList(List* list)
+void printList(CycleList* list)
 {
     if (!list || !list->tail) {
         printf("List is empty!\n");
@@ -121,7 +130,7 @@ void printList(List* list)
     printf("\n");
 }
 
-void deleteList(List* list)
+void deleteList(CycleList* list)
 {
     while (list->tail != NULL) {
         pop(list, 0);
