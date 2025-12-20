@@ -1,0 +1,4 @@
+add_executable(fast_polynomial fast_polynomial.c)
+add_executable(incomplete_quotient incomplete_quotient.c)
+add_executable(lucky_tickets lucky_tickets.c)
+add_executable(permutation_array permutation_array.c)
