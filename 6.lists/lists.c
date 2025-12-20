@@ -61,13 +61,6 @@ bool removeValue(SortedList* list, int num)
         return false;
     }
 
-    if (list->head->value == num) {
-        ListNode* removeNode = list->head;
-        list->head = list->head->next;
-        free(removeNode);
-        return true;
-    }
-
     ListNode* curr = list->head;
     ListNode* prev = NULL;
     while (curr != NULL && curr->value != num) {
@@ -91,6 +84,13 @@ bool removeValue(SortedList* list, int num)
     free(curr);
     return true;
 }
+
+/* status отвечает за успех/неудачу операции (есть защита от нулевого указателя)
+если список не существует, пуст или индекс отрицательный - даем статус false
+ищем ноду по индексу. Если нашли - возвращаем значение
+если нет и индекс больше размеров списка, то даем статус false
+(при неудаче неважно что return'ить. Это сделано, чтобы можно было и -1, к примеру, получить из списка без конфликта)
+*/
 
 int get(SortedList* list, int index, bool* status)
 {
