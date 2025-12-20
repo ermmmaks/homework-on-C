@@ -7,7 +7,7 @@ int trick(int n, int m)
         return -1;
     }
 
-    List* list = createNew();
+    CycleList* list = createNew();
     for (int i = 1; i < n + 1; i++) {
         if (!insert(list, i - 1, i)) {
             printf("Error adding\n");
