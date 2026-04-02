@@ -5,5 +5,6 @@ project(homeworkOnC)
 add_subdirectory(deadline_25.09)
 add_subdirectory(deadline_30.09)
 add_subdirectory(1.hello)
+add_subdirectory(4HW)
 
 add_compile_options(-Wall -Wextra -Wpedantic)

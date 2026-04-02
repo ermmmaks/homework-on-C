@@ -1,0 +1,1 @@
+add_executable(helloOnC hello_on_c.c)
